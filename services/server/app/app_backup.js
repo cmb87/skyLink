@@ -21,7 +21,7 @@ app.use(bodyParser.json());
 
 app.use(express.static(process.cwd()));
 
-app.get('/', (req, res) => {
+app.get('/', (req,res) => {
   res.sendFile(process.cwd()+"/index.html")
 });
 
@@ -33,34 +33,21 @@ app.get('*', function(req, res) {
 // Web Namespace
 // =========================================
 io.of("/web").on('connection', (socket) => {
-  console.log('a user connected');
+  console.log('a user connected in web namespace');
 });
 
 // =========================================
 // Camera Namespace
 // =========================================
 io.of("/cam").on('connection', (socket) => {
-  console.log('a camera connected');
-});
-
-
-// =========================================
-// ROS2 Namespace
-// =========================================
-io.of("/ros2").on('connection', (socket) => {
-  console.log('a user connected in ros2 namespace');
-
-  socket.on('videofeed1', function (msg) {
-    io.of("/web").emit('videofeed1', msg);
-  });
-
+  console.log('a user connected in cam1 namespace');
 });
 
 // =========================================
 // Drone Namespace
 // =========================================
-io.of("/control").on('connection', (socket) => {
-  console.log('a device entered the control space');
+io.of("/drone").on('connection', (socket) => {
+  console.log('a drone connected');
 
   socket.on('disconnect', function () {
     console.log('user disconnected');
@@ -68,28 +55,58 @@ io.of("/control").on('connection', (socket) => {
 
   // SocketIoRos2 bridge
   socket.on('ros2server', function (msg) {
-   io.of("/ros2").emit('control', msg);
+   console.log(msg);
   });
 
   // Receive control command
-  socket.on('joystick', function (msg) {
-    var aux1 = msg[4];
+  socket.on('gamepad', function (msg) {
+   var aux1 = msg[4];
+   var aux2 = msg[5];
 
-    console.log(msg);
+   console.log(msg);
 
-    if ( aux1 > 1500 && !armed) {
+   io.emit('control', msg);
+
+   if ( aux1 > 1500 && !armed) {
       console.log("Armed!");
       io.emit('toggleled', "");
       armed = true;
 
-    } else if ( aux1 < 1500 && armed ) {
+   } else if ( aux1 < 1500 && armed ) {
       console.log("Disarmed!");
       io.emit('toggleled', "");
       armed = false;
-    }
+   }
+  });
+
+  // Toggle led
+  socket.on('statechange', function (msg) {
+   console.log("statechange: "+msg);
+   io.emit('toggleled', "");
   });
 
 });
+
+
+io.on('connection', function (socket) {
+
+
+
+
+
+
+
+
+
+  timeout();
+});
+
+function timeout() {
+  setTimeout(function () {
+   io.emit('state_change_request',"A message from server");
+    timeout();
+  }, 5000);
+}
 
 
 // =========================================

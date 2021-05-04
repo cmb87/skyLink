@@ -23,7 +23,7 @@ def main():
     while True:
         try:
             sio.connect(f"ws://{config.server['hostname']}:{config.server['port']}", namespaces=[config.server['namespace']])
-            logging.info("Connected to server")
+            logging.info(f"Connected to ws://{config.server['hostname']}:{config.server['port']} under the namespace {config.server['namespace']}")
             break
         except:
             logging.warning(f"Could not connect to server ws://{config.server['hostname']}:{config.server['port']}")

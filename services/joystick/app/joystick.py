@@ -32,8 +32,6 @@ class Joystick:
 
             for event in events:
 
-                print(event.ev_type, event.code, event.state)
-
                 if event.code in ["ABS_X", "ABS_Y", "ABS_Z", "ABS_HAT0X", "ABS_HAT0Y"]:
 
                     if config.joystick["config"][event.code]['invert']:
@@ -62,4 +60,8 @@ class Joystick:
             # sio.emit('gamepad', [self.state[k] for k in ["pitch", "yaw", "throttle", "roll", "aux1", "aux2", "aux3", "aux4" ]])
 
             # ["throttle", "roll", "pitch", "yaw", "aux1", "aux2", "aux3", "aux4"] for multiwii!
-            self.sio.emit('gamepad',[self.state[k] for k in config.joystick["channelorder"]])
+            self.sio.emit(
+                'joystick',
+                [self.state[k] for k in config.joystick["channelorder"]],
+                namespace=config.server['namespace']
+            )

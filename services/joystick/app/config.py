@@ -26,7 +26,7 @@ server = {
     "logginglevel": _loggingLevels[os.getenv('LOGGING', 'CRITICAL').upper()],
     "hostname": os.getenv('ENV_SOCKETIOSERVER', 'localhost'),
     "port": int(os.getenv('ENV_SOCKETIOPORT', 5000)),
-    "namespace": os.getenv('ENV_NAMESPACE', "/cv"),
+    "namespace": os.getenv('ENV_NAMESPACE', "/control"),
 }
 
 
