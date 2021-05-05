@@ -1,15 +1,10 @@
-const express = require('express');
-const bodyParser = require("body-parser");
 const app = require('express')();
-const http = require('http').Server(app);
-const io = require('socket.io')(http);
+const server = require('http').createServer(app);
+const io = require('socket.io')(server);
+
 
 // Now attach the socket.io variable with the HTTP server created
-io.attach(http, {
- pingInterval: 10000,
- pingTimeout: 5000,
- cookie: false
-});
+
 
 // Boolean if armed button has been pressed
 var armed = false;
@@ -17,17 +12,30 @@ var armed = false;
 // =========================================
 // http web endpoints
 // =========================================
-app.use(bodyParser.json());
+//app.use(bodyParser.json());
 
-app.use(express.static(process.cwd()));
+//app.use(express.static(process.cwd()));
 
-app.get('/', (req, res) => {
-  res.sendFile(process.cwd()+"/index.html")
+//app.get('/', (req, res) => {
+//  res.sendFile(process.cwd()+"/index.html")
+//});
+
+//app.get('*', function(req, res) {
+//  res.sendFile(process.cwd()+"/index.html")
+//})
+
+app.get('/test', (req, res) => {
+  //res.set('Content-Type', 'text/html');
+  //res.send('Hello World!')
+  res.json({ username: 'Flavio' })
 });
 
-app.get('*', function(req, res) {
-  res.sendFile(process.cwd()+"/index.html")
-})
+app.get('/', (req, res) => {
+  //res.set('Content-Type', 'text/html');
+  res.send('Hello World!')
+});
+
+
 
 // =========================================
 // Web Namespace
@@ -76,6 +84,7 @@ io.of("/control").on('connection', (socket) => {
     var aux1 = msg[4];
 
     console.log(msg);
+    io.emit('control', msg);
 
     if ( aux1 > 1500 && !armed) {
       console.log("Armed!");
@@ -95,18 +104,24 @@ io.of("/control").on('connection', (socket) => {
 // =========================================
 // SocketIO endpoints
 // =========================================
-io.on('connection', (socket) => {
-  console.log('a user connected');
+io.on('connection', function (socket) {
 
-  socket.on('disconnect', () => {
+  console.log('user connected');
+
+  socket.on('disconnect', function () {
     console.log('user disconnected');
   });
 
 });
 
+
+
+
+
 // =========================================
 // Start Server
 // =========================================
-http.listen(5000, () => {
+server.listen(5000, () => {
   console.log('listening on *:5000');
 });
+
