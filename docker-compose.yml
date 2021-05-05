@@ -4,7 +4,7 @@ services:
   control-server:
     container_name: control-server
     restart: always
-    image: "server:latest"
+    image: "cmb87/skylink-nodeserver:latest"
     ports:
       - "5000:5000"
 
@@ -12,7 +12,7 @@ services:
     container_name: control-joystick
     restart: always
     privileged: true
-    image: "joystick:latest"
+    image: "cmb87/skylink-thrustmaster:latest"
     ports:
      - "5001:5000"
     environment:
