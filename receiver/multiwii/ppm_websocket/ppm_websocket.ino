@@ -4,7 +4,7 @@
 #include <SocketIoClient.h>
 #include <ArduinoJson.h>
 #include <SoftwareSerial.h>
-#include <MSP.h>
+
 
 // =================== CONFIG =================== 
 /////////////////////////////////////
@@ -15,7 +15,7 @@ const char* ssid     = "WLAN-EVFRMG";
 const char* password = "5766762671789386";
 
 /// Socket.IO Settings ///
-char host[] = "192.168.2.138"; // Socket.IO Server Address
+char host[] = "workmasterIV"; // Socket.IO Server Address
 int port = 5000; // Socket.IO Port Address
 
 /// Pin Settings ///
