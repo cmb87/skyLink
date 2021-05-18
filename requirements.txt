@@ -1,0 +1,5 @@
+pyserial
+inputs
+numpy
+matplotlib
+numpy-stl
