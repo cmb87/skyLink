@@ -6,7 +6,6 @@ __pycache__/
 # Angular
 node_modules
 .idea
-dist
 
 # C extensions
 *.so
