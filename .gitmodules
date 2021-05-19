@@ -1,0 +1,3 @@
+[submodule "WiiProxy"]
+	path = WiiProxy
+	url = https://github.com/engineer-99b/WiiProxy.git
