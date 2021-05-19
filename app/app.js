@@ -98,6 +98,17 @@ io.of("/control").on('connection', (socket) => {
     }
   });
 
+  // Receive data from drone
+  socket.on('inferenceresults', function (msg) {
+    io.emit('sendNextData', "next");
+    io.of("/web").emit('videofeed', msg);
+  });
+
+  // Start video transmission
+  socket.on('starttransmission', function (msg) {
+    io.emit('sendNextData', "start");
+  });
+
 });
 
 
