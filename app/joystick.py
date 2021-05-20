@@ -22,11 +22,20 @@ class Joystick:
         self.sio = socketIOClient
 
         logging.info("Joystick instance created!")
+
+    # =================================
+    def _send(self):
+        self.sio.emit(
+            'joystick',
+            [self.state[k] for k in config.joystick["channelorder"]],
+            namespace=config.server['namespace']
+        )
     # =================================
     def start(self):
         """Just print out some event infomation when the gamepad is used."""
 
         timeLastEmit = 0.0
+        timeLastTransmission = 0.0
 
         while True:
 
@@ -65,9 +74,7 @@ class Joystick:
             # only emit every t timesteps
             if (time.time()-timeLastEmit) > config.joystick["timesleep"]:
                 # Hello
-                self.sio.emit(
-		            'joystick',
-		            [self.state[k] for k in config.joystick["channelorder"]],
-		            namespace=config.server['namespace']
-                )
+                self._send()
                 timeLastEmit = time.time()
+
+
