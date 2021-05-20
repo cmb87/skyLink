@@ -1,7 +1,7 @@
 from inputs import get_gamepad
 import logging
 import config
-
+import time
 
 class Joystick:
 
@@ -25,6 +25,8 @@ class Joystick:
     # =================================
     def start(self):
         """Just print out some event infomation when the gamepad is used."""
+
+        timeLastEmit = 0.0
 
         while True:
 
@@ -60,8 +62,12 @@ class Joystick:
             # sio.emit('gamepad', [self.state[k] for k in ["pitch", "yaw", "throttle", "roll", "aux1", "aux2", "aux3", "aux4" ]])
 
             # ["throttle", "roll", "pitch", "yaw", "aux1", "aux2", "aux3", "aux4"] for multiwii!
-            self.sio.emit(
-                'joystick',
-                [self.state[k] for k in config.joystick["channelorder"]],
-                namespace=config.server['namespace']
-            )
+	
+            # only emit every t timesteps
+            if (time.time()-timeLastEmit) > config.joystick["timesleep"]:
+		        self.sio.emit(
+		            'joystick',
+		            [self.state[k] for k in config.joystick["channelorder"]],
+		            namespace=config.server['namespace']
+		        )
+		        timeLastEmit = time.time()

@@ -8,6 +8,7 @@ _loggingLevels = {
 
 joystick = {
     "channelorder": os.getenv('ENV_CHANNELORDER', "throttle roll pitch yaw aux1 aux2 aux3 aux4").split(" "), # Default MultiWii
+    "timesleep": float(os.getenv('ENV_TIMESLEEP', "0.1")),
     "config": {
         "ABS_Z": {"lb": 127, "ub": -128, "iv": 0, "lbm": 1000, "ubm": 1550, "description": "throttle", "invert": False},
         "ABS_X": {"lb": -128, "ub": 127, "iv": 0, "lbm": 1300, "ubm": 1700, "description": "roll", "invert": False},
