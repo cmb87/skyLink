@@ -64,6 +64,7 @@ class Joystick:
             # ["throttle", "roll", "pitch", "yaw", "aux1", "aux2", "aux3", "aux4"] for multiwii!
             # only emit every t timesteps
             if (time.time()-timeLastEmit) > config.joystick["timesleep"]:
+                # Hello
                 self.sio.emit(
 		            'joystick',
 		            [self.state[k] for k in config.joystick["channelorder"]],
