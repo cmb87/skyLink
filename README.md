@@ -10,5 +10,6 @@ Device wasnt showed as /dev/ttyUSB0. According to website (https://www.linuxques
 
 # Docker
 
-        docker build -t joystick -f docker/Dockerfile .
+        docker build -t cmb87/skylink-thrustmaster:latest -f docker/Dockerfile .
         docker run --privileged -v /dev:/dev -e ENV_SOCKETIOSERVER="192.168.2.138"  joystick:latest
+        docker push  cmb87/skylink-thrustmaster:latest
