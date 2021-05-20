@@ -23,7 +23,7 @@ analytic = {
     "flip": os.getenv('INFERENCEFLIP', '0'),
     "send_width": int(os.getenv('SENDWIDTH', '150')),
     "send_height": int(os.getenv('SENDHEIGHT', '150')),
-    "source": int(os.getenv('CAMERADEV', '2')),
+    "source": int(os.getenv('CAMERADEV', '0')),
     "sleeptime": float(os.getenv('INFERENCESLEEPTIME', '0.05')),
     "graysend": os.getenv('INFERENCEGRAY', '1'),
 }
