@@ -30,12 +30,6 @@ app.get('/test', (req, res) => {
   res.json({ username: 'Flavio' })
 });
 
-app.get('/', (req, res) => {
-  //res.set('Content-Type', 'text/html');
-  res.send('Hello World!')
-});
-
-
 
 // =========================================
 // Web Namespace
