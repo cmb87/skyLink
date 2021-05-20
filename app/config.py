@@ -9,8 +9,15 @@ _loggingLevels = {
 drone = {
     "ppmgpio": int(os.getenv('PPMGPIO', '26')), # Pin 37 on PiZero
     "mspserialdev" : os.getenv('SERIALMSPDEV', "/dev/ttyS0"),
+    "pwmpin1": int(os.getenv('pwmpin1', 5)),
+    "pwmpin2": int(os.getenv('pwmpin2', 6)),
+    "pwmpin3": int(os.getenv('pwmpin3', 13)),
+    "pwmpin4": int(os.getenv('pwmpin4', 19)),
+    "pwmpin5": int(os.getenv('pwmpin5', 26)),
+    "pwmpin6": int(os.getenv('pwmpin6', 16)),
+    "pwmpin7": int(os.getenv('pwmpin7', 20)),
+    "pwmpin8": int(os.getenv('pwmpin8', 21)),
 }
-
 
 analytic = {
     "flip": os.getenv('INFERENCEFLIP', '0'),
@@ -24,7 +31,7 @@ analytic = {
 server = {
     "appname": os.getenv('ENV_APPNAME', 'joystick'),
     "logginglevel": _loggingLevels[os.getenv('LOGGING', 'INFO').upper()],
-    "hostname": os.getenv('ENV_SOCKETIOSERVER', 'localhost'),
+    "hostname": os.getenv('ENV_SOCKETIOSERVER', '192.168.2.138'),
     "port": int(os.getenv('ENV_SOCKETIOPORT', 5000)),
     "namespace": os.getenv('ENV_NAMESPACE', "/control"),
 }
