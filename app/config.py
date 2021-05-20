@@ -21,8 +21,8 @@ drone = {
 
 analytic = {
     "flip": os.getenv('INFERENCEFLIP', '0'),
-    "send_width": int(os.getenv('SENDWIDTH', '150')),
-    "send_height": int(os.getenv('SENDHEIGHT', '150')),
+    "send_width": int(os.getenv('SENDWIDTH', '100')),
+    "send_height": int(os.getenv('SENDHEIGHT', '100')),
     "source": int(os.getenv('CAMERADEV', '0')),
     "sleeptime": float(os.getenv('INFERENCESLEEPTIME', '0.05')),
     "graysend": os.getenv('INFERENCEGRAY', '1'),
@@ -30,7 +30,7 @@ analytic = {
 
 server = {
     "appname": os.getenv('ENV_APPNAME', 'joystick'),
-    "logginglevel": _loggingLevels[os.getenv('LOGGING', 'INFO').upper()],
+    "logginglevel": _loggingLevels[os.getenv('LOGGING', 'CRITICAL').upper()],
     "hostname": os.getenv('ENV_SOCKETIOSERVER', '192.168.2.138'),
     "port": int(os.getenv('ENV_SOCKETIOPORT', 5000)),
     "namespace": os.getenv('ENV_NAMESPACE', "/control"),

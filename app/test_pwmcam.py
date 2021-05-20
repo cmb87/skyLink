@@ -44,6 +44,7 @@ def sendData(msg):
     frameBase64, attitude = getData()
 
     print("message received")
+    # time.sleep(config.analytic["sleeptime"])
 
     # Tansmit data
     sio.emit('inferenceresults', {
@@ -51,7 +52,7 @@ def sendData(msg):
         'attitude': attitude,
         }, namespace=config.server["namespace"]
     )
-    time.sleep(config.analytic["sleeptime"])
+
 
 
 # =============================================
