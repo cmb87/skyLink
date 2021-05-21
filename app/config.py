@@ -24,7 +24,7 @@ analytic = {
     "send_width": int(os.getenv('SENDWIDTH', '100')),
     "send_height": int(os.getenv('SENDHEIGHT', '100')),
     "source": int(os.getenv('CAMERADEV', '0')),
-    "sleeptime": float(os.getenv('INFERENCESLEEPTIME', '0.05')),
+    "sleeptime": float(os.getenv('INFERENCESLEEPTIME', '0.1')),
     "graysend": os.getenv('INFERENCEGRAY', '1'),
 }
 
