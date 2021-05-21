@@ -17,7 +17,8 @@ Computer Vision enhanced custom analytics
 
 will enable it to auto-start on boot.
 
-    sudo systemctl start pigpiod 
+    
+   
 
 will start it immediately (just a posh way of doing
 

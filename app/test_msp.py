@@ -28,10 +28,6 @@ cam = Camera()
 # Connect to board
 board = MultiWii(config.drone["mspserialdev"])
 
-print("Calibrate")
-board.sendCMD(0, MultiWii.ACC_CALIBRATION,[],'')
-time.sleep(5)
-
 # =============================================
 def getData():
 
@@ -76,14 +72,20 @@ def calibrate(msg):
 # =============================================
 @sio.on('control')
 def setControl(msg):
-    pi.set_servo_pulsewidth(config.drone["pwmpin1"], int(msg[0]))
-    pi.set_servo_pulsewidth(config.drone["pwmpin2"], int(msg[1]))
-    pi.set_servo_pulsewidth(config.drone["pwmpin3"], int(msg[2]))
-    pi.set_servo_pulsewidth(config.drone["pwmpin4"], int(msg[3]))
-    pi.set_servo_pulsewidth(config.drone["pwmpin5"], int(msg[4]))
-    pi.set_servo_pulsewidth(config.drone["pwmpin6"], int(msg[5]))
-    pi.set_servo_pulsewidth(config.drone["pwmpin7"], int(msg[6]))
-    pi.set_servo_pulsewidth(config.drone["pwmpin8"], int(msg[7]))
+
+    data = [1500,1500,2000,1000]
+    #
+    board.sendCMD(16, MultiWii.SET_RAW_RC, msg, '<8H')
+
+    # msg = [1500,1500,1000,1500,0,0,0,0]
+    #
+    # for i in range(len(msg)):
+    #   binary = '{0:016b}'.format(msg[i])
+    #   msg.append(int(binary[8:], 2))
+    #   msg.append(int(binary[:8], 2))
+    #
+    # print(msg)
+    # board.sendCMD(16,MultiWii.SET_RAW_RC,msg,'16B')
 
 # =============================================
 @sio.on('toggleled')
