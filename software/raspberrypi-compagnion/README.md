@@ -51,6 +51,7 @@ will have an immediate effect.
     
 ## Run Python script on every startup
 Head over to /etc/profile, add command to start the Python script
+
     ...
     python3 /home/pi/..../app.py
 
