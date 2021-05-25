@@ -31,7 +31,7 @@ analytic = {
 server = {
     "appname": os.getenv('ENV_APPNAME', 'joystick'),
     "logginglevel": _loggingLevels[os.getenv('LOGGING', 'CRITICAL').upper()],
-    "hostname": os.getenv('ENV_SOCKETIOSERVER', '192.168.2.138'),
+    "hostname": os.getenv('ENV_SOCKETIOSERVER', '192.168.2.109'),
     "port": int(os.getenv('ENV_SOCKETIOPORT', 5000)),
     "namespace": os.getenv('ENV_NAMESPACE', "/control"),
 }

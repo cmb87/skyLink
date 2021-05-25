@@ -49,6 +49,12 @@ will have an immediate effect.
     Aux1     D7 - GPIO 21
     G        GND
     
+## Run Python script on every startup
+Head over to /etc/profile, add command to start the Python script
+    ...
+    python3 /home/pi/..../app.py
+
+
 ## Issues
 
 ### RPI Slow Wifi network connection
