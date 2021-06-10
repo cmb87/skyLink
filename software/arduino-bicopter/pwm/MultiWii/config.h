@@ -680,7 +680,7 @@ At this moment you can use this function only with WinGUI 2.3 release. MultiWiiC
                                    // note: Now a GPS can share MSP on the same port. The only constrain is to not use it simultaneously, and use the same port speed.
 
     // avoid using 115200 baud because with 16MHz arduino the 115200 baudrate have more than 2% speed error (57600 have 0.8% error)
-    #define GPS_BAUD   57600       // GPS_BAUD will override SERIALx_COM_SPEED for the selected port
+    #define GPS_BAUD   9600       // GPS_BAUD will override SERIALx_COM_SPEED for the selected port
 
    /* GPS protocol 
        NMEA  - Standard NMEA protocol GGA, GSA and RMC  sentences are needed
@@ -690,7 +690,7 @@ At this moment you can use this function only with WinGUI 2.3 release. MultiWiiC
 
     
     //#define NMEA
-    //#define UBLOX
+    #define UBLOX
     //#define MTK_BINARY16
     //#define MTK_BINARY19
     //#define INIT_MTK_GPS        // initialize MTK GPS for using selected speed, 5Hz update rate and GGA & RMC sentence or binary settings
@@ -702,7 +702,7 @@ At this moment you can use this function only with WinGUI 2.3 release. MultiWiiC
        You have to use at least I2CGpsNav code r33 */
     /* all functionnalities allowed by SERIAL_GPS are now available for I2C_GPS: all relevant navigation computations are gathered in the main FC */
 
-    //#define I2C_GPS
+    #define I2C_GPS
 
     // If your I2C GPS board has Sonar support enabled
     //#define I2C_GPS_SONAR
