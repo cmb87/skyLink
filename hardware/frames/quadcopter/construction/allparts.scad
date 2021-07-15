@@ -6,7 +6,7 @@ createLandingGear = false;
 createShroudHolder = false;
 createHardwareHolder = false;
 createHardwareHolderLid = false;
-createHardwareHolderPlatform = false;
+createHardwareHolderPlatform = true;
 
 plateLength = 25;
 centralBodyWidth = 58;
@@ -123,29 +123,63 @@ module hardwareHolderLid(upperWallThck=5) {
   };
 }
 
-module hardwareHolderPlatform(panelWidth=7,nholes=13, outerPanelWidth=28){
+module hardwareHolderPlatformOneSide(upperWallThck=5, lowerWallThk=6) {
+  
+  rd = 6;  
+  rdi = 4;
+  rdo = 2.5;
     
-  x = hardwareHolderPlatformLength;
-  dx = hardwareHolderPlatformLength + hardwareHolderLength;
+  x = hardwareHolderLength+5;
+  r = x/2;
+  y = hardwareHolderWidth/2 - 7;
+  
+  y1 = profileWidth/2 + profileHeight/2;
+  dy = profileHeight + upperWallThck;
+  dy2  = dy+lowerWallThk;
+  
+  x2 = hardwareHolderLength*0.26;
+  y2 = y1 - 0.5*profileHeight-0.25*upperWallThck;
+  y3 = y1 + 0.5*profileHeight+0.25*upperWallThck;
     
   color("green")
+  difference(){
     union(){
-      translate([x/2,0,0])hardwareHolder();
-      translate([-x/2,0,0])hardwareHolder();
-        
-      translate([-panelWidth/2,-outerPanelWidth,-2])cube([panelWidth,outerPanelWidth*2,2]);
-        
-      for (y = [-outerPanelWidth,-2,2,outerPanelWidth]){
-        difference(){
-          translate([-dx/2,-panelWidth/2+y,-2])cube([dx,panelWidth,2]);
-
-          for (i = [1:nholes]){
-            x1 = -dx/2 + i*hardwareHolderPlatformLength/(nholes-1);
-            translate([x1,y,-3])cylinder(r=0.5,h=10, $fn=20);   
-          }
+      translate([-x/2,0,-2])cube([x,y,2]);
+      translate([0,y,-2])cylinder(r=r, h=2, $fn=20);
+      
+      if (createBrackets) {
+        hull(){  
+          translate([-x/2,y1-dy/2,0])cube([x,dy,profileHeight]);
+          translate([-x/2,y1-dy2/2,-1])cube([x,dy2,1]);
         }
       }
+      translate([0,y,-5])cylinder(r=rd, h=4, $fn=20);
+      
+      hull(){
+        translate([-19/2,31,-7])cube([19,1,5]);
+        translate([0,y,-3])cylinder(r=r, h=1, $fn=20);
+      }
+      
+      translate([-19/2,-1,-7])cube([19,2,5]);
+      
     };
+    
+    translate([0,y,-2.1-10-3])cylinder(r=rdi, h=3+10, $fn=20);
+    translate([0,y,-2.1-5])cylinder(r=rdo, h=100, $fn=20);
+    translate([-50,1,-7])cube([100,30,5]);
+
+
+  };
+  
+}
+
+
+module hardwareHolderPlatform(panelWidth=7,nholes=13, outerPanelWidth=28){
+   union(){
+     hardwareHolderPlatformOneSide();
+     mirror([0,1,0])hardwareHolderPlatformOneSide();   
+   }
+
 }
 
 // ===================== Shroud Holder====================================
